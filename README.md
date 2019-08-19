@@ -1,13 +1,7 @@
 # subway_line2
----
-title: "Subway"
-author: "Jihyun"
-date: "7/16/2019"
-output:
-  html_document: default
-  pdf_document: default
-  word_document: default
----
+> 정리된 보고서는 <https://github.com/dlwlgus53/subway_line2/blob/master/subway_ppt.pdf>에서 볼 수 있습니다.
+> 아래 내용은 코드와 코드 설명입니다. Subway.Rmd 파일에서 동일하게 볼 수 있습니다.
+
 # 날씨에 따른 서울 지하철 2호선 혼잡도 예상
 ## 1. 데이터 전처리
 
