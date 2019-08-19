@@ -1,0 +1,1295 @@
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\hypersetup{unicode=true,
+            pdftitle={Subway},
+            pdfauthor={Jihyun},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+
+% Create subtitle command for use in maketitle
+\providecommand{\subtitle}[1]{
+  \posttitle{
+    \begin{center}\large#1\end{center}
+    }
+}
+
+\setlength{\droptitle}{-2em}
+
+  \title{Subway}
+    \pretitle{\vspace{\droptitle}\centering\huge}
+  \posttitle{\par}
+    \author{Jihyun}
+    \preauthor{\centering\large\emph}
+  \postauthor{\par}
+      \predate{\centering\large\emph}
+  \postdate{\par}
+    \date{7/16/2019}
+
+
+\begin{document}
+\maketitle
+
+\section{날씨에 따른 서울 지하철 2호선 혼잡도 예상}\label{----2--}
+
+\subsection{1. 데이터 전처리}\label{-}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(openxlsx)}
+\KeywordTok{library}\NormalTok{(dplyr)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Attaching package: 'dplyr'
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:stats':
+## 
+##     filter, lag
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:base':
+## 
+##     intersect, setdiff, setequal, union
+\end{verbatim}
+
+\subsubsection{지하철 데이터를 읽어옵니다.}\label{--.}
+
+\paragraph{2018년}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 2018년 데이터}
+\NormalTok{subway_2018_raw <-}\StringTok{ }\KeywordTok{read.xlsx}\NormalTok{(}\StringTok{"subway/subway_2018.xlsx"}\NormalTok{, }\DataTypeTok{sheet =} \DecValTok{1}\NormalTok{,}\DataTypeTok{startRow =} \DecValTok{2}\NormalTok{, }\DataTypeTok{colNames =} \OtherTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+2018년도의 일별 2호선 승차 데이터를 분리해 냅니다.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{subway_}\DecValTok{2018}\NormalTok{ <-}\StringTok{ }\NormalTok{subway_2018_raw }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(on_off }\OperatorTok{==}\StringTok{ '승차'} \OperatorTok{&}\StringTok{ }\NormalTok{line }\OperatorTok{==}\StringTok{ '2호선'}\NormalTok{) }
+\end{Highlighting}
+\end{Shaded}
+
+num 형태의 date를 date 형태로 변형하고, date 변수를 통해 day를 변수를
+만들어 줍니다.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{subway_}\DecValTok{2018}\OperatorTok{$}\NormalTok{date <-}\StringTok{ }\KeywordTok{convertToDate}\NormalTok{(subway_}\DecValTok{2018}\OperatorTok{$}\NormalTok{date)}\CommentTok{# 43101 -> 2018-01-01}
+\NormalTok{subway_}\DecValTok{2018}\OperatorTok{$}\NormalTok{day <-}\StringTok{ }\KeywordTok{weekdays}\NormalTok{(}\KeywordTok{as.Date}\NormalTok{(subway_}\DecValTok{2018}\OperatorTok{$}\NormalTok{date)) }\CommentTok{#2018-01-01 -> Monday}
+\end{Highlighting}
+\end{Shaded}
+
+휴일과 아닌날을 구분하기 위해 2018년의 공휴일 리스트를 가져온 후,
+holiday 변수에 휴일과 아닌날을 구분해 줍니다.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{holiday_}\DecValTok{2018}\NormalTok{ <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{'2018-01-01'}\NormalTok{, }\StringTok{'2018-02-15'}\NormalTok{, }\StringTok{'2018-02-16'}\NormalTok{, }\StringTok{'2018-02-17'}\NormalTok{,}
+            \StringTok{'2018-03-01'}\NormalTok{, }\StringTok{'2018-05-05'}\NormalTok{, }\StringTok{'2018-05-22'}\NormalTok{, }\StringTok{'2018-06-06'}\NormalTok{,}
+            \StringTok{'2018-06-13'}\NormalTok{, }\StringTok{'2018-05-07'}\NormalTok{, }\StringTok{'2018-05-06'}\NormalTok{, }\StringTok{'2018-05-01'}\NormalTok{,}
+            \StringTok{'2018-08-15'}\NormalTok{, }\StringTok{'2018-09-23'}\NormalTok{, }\StringTok{'2018-09-24'}\NormalTok{, }\StringTok{'2018-09-26'}\NormalTok{,}
+            \StringTok{'2018-09-25'}\NormalTok{, }\StringTok{'2018-10-03'}\NormalTok{, }\StringTok{'2018-10-09'}\NormalTok{, }\StringTok{'2018-12-25'}\NormalTok{)}
+
+\NormalTok{subway_}\DecValTok{2018}\OperatorTok{$}\NormalTok{holiday <-}\StringTok{ }\KeywordTok{ifelse}\NormalTok{(subway_}\DecValTok{2018}\OperatorTok{$}\NormalTok{day }\OperatorTok{%in%}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{'Saturday'}\NormalTok{, }\StringTok{'Sunday'}\NormalTok{) }\OperatorTok{|}\StringTok{ }\NormalTok{subway_}\DecValTok{2018}\OperatorTok{$}\NormalTok{date }\OperatorTok{%in%}\StringTok{ }\KeywordTok{as.Date.character}\NormalTok{(holiday_}\DecValTok{2018}\NormalTok{), }\StringTok{'T'}\NormalTok{, }\StringTok{'F'}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+오전 6시부터 10시, 오후 5시부터 9시까지 출퇴근 시간대로 구분하여 각 날의
+출퇴근 인원을 rush\_user변수에 담았습니다. 휴일에는 출퇴근 인원이 없다고
+가정하여, notrush\_user에 전체 인원을 넣었습니다.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{rush_user_}\DecValTok{2018}\NormalTok{ <-}\StringTok{ }\KeywordTok{ifelse}\NormalTok{(subway_}\DecValTok{2018}\NormalTok{[,}\StringTok{"holiday"}\NormalTok{] }\OperatorTok{==}\StringTok{ 'T'}\NormalTok{,}\DecValTok{0}\NormalTok{, }\KeywordTok{rowSums}\NormalTok{(subway_}\DecValTok{2018}\NormalTok{[,}\KeywordTok{c}\NormalTok{(}\DecValTok{7}\OperatorTok{:}\DecValTok{10}\NormalTok{,}\DecValTok{18}\OperatorTok{:}\DecValTok{21}\NormalTok{)]))}
+\NormalTok{notrush_user_}\DecValTok{2018}\NormalTok{ <-}\StringTok{ }\KeywordTok{ifelse}\NormalTok{(subway_}\DecValTok{2018}\NormalTok{[,}\StringTok{"holiday"}\NormalTok{] }\OperatorTok{==}\StringTok{ 'T'}\NormalTok{,subway_}\DecValTok{2018}\NormalTok{[,}\DecValTok{26}\NormalTok{], subway_}\DecValTok{2018}\NormalTok{[,}\DecValTok{26}\NormalTok{]}\OperatorTok{-}\NormalTok{rush_user_}\DecValTok{2018}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+구한 rush\_usre와 notrush\_user를 subway\_2018변수와 합쳐줍니다.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{subway_}\DecValTok{2018}\NormalTok{ =}\StringTok{ }\KeywordTok{cbind}\NormalTok{(subway_}\DecValTok{2018}\NormalTok{, rush_user_}\DecValTok{2018}\NormalTok{)}
+\NormalTok{subway_}\DecValTok{2018}\NormalTok{ =}\StringTok{ }\KeywordTok{cbind}\NormalTok{(subway_}\DecValTok{2018}\NormalTok{, notrush_user_}\DecValTok{2018}\NormalTok{)}
+\KeywordTok{head}\NormalTok{(subway_}\DecValTok{2018}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##         date  line station_code       station_name on_off 05.~.06 06.~.07
+## 1 2018-01-01 2호선          201               시청   승차      37      57
+## 2 2018-01-01 2호선          202         을지로입구   승차     128     116
+## 3 2018-01-01 2호선          203          을지로3가   승차      42      79
+## 4 2018-01-01 2호선          204          을지로4가   승차      24      41
+## 5 2018-01-01 2호선          205 동대문역사문화공원   승차     123     112
+## 6 2018-01-01 2호선          206               신당   승차     140     139
+##   07.~.08 08.~.09 09.~.10 10.~.11 11.~.12 12.~.13 13.~.14 14.~.15 15.~.16
+## 1      77     106     179     342     478     502     448     568     610
+## 2     127     205     373     524     827    1116    1184    1468    1722
+## 3      98     124     215     542     454     778     539     538     528
+## 4      57      83     151     227     342     283     317     274     271
+## 5     146     195     361     413     506     638     772     737     964
+## 6     144     253     311     400     460     527     607     629     631
+##   16.~.17 17.~.18 18.~.19 19.~.20 20.~.21 21.~.22 22.~.23 23.~.24 00.~.01
+## 1     698     798     765     630     633     617     392     176       2
+## 2    1798    2139    2478    2001    1862    2196    1804     863      13
+## 3     545     619     539     427     367     342     237      98       0
+## 4     308     296     247     194     139     126      78      37       3
+## 5    1103     984     978     865     808     685     616     446       2
+## 6     721     635     496     326     276     251     214     114       1
+##     sum    day holiday rush_user_2018 notrush_user_2018
+## 1  8115 Monday       T              0              8115
+## 2 22944 Monday       T              0             22944
+## 3  7111 Monday       T              0              7111
+## 4  3498 Monday       T              0              3498
+## 5 11454 Monday       T              0             11454
+## 6  7275 Monday       T              0              7275
+\end{verbatim}
+
+시간대별로, 지하철 역 별로 나눠진 인원을 일자별로 합쳐줍니다.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{subway_}\DecValTok{2018}\NormalTok{ =}\StringTok{ }\NormalTok{subway_}\DecValTok{2018} \OperatorTok{%>%}
+\StringTok{  }\KeywordTok{group_by}\NormalTok{(date,holiday,day) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{summarise}\NormalTok{(}\DataTypeTok{rush_user_tot=} \KeywordTok{sum}\NormalTok{(rush_user_}\DecValTok{2018}\NormalTok{), }\DataTypeTok{notrush_user_tot =} \KeywordTok{sum}\NormalTok{(notrush_user_}\DecValTok{2018}\NormalTok{))}
+\KeywordTok{head}\NormalTok{(subway_}\DecValTok{2018}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 6 x 5
+## # Groups:   date, holiday [6]
+##   date       holiday day       rush_user_tot notrush_user_tot
+##   <date>     <chr>   <chr>             <dbl>            <dbl>
+## 1 2018-01-01 T       Monday                0           704331
+## 2 2018-01-02 F       Tuesday          922781           686791
+## 3 2018-01-03 F       Wednesday        943062           722416
+## 4 2018-01-04 F       Thursday         934506           742750
+## 5 2018-01-05 F       Friday           977363           788476
+## 6 2018-01-06 T       Saturday              0          1262856
+\end{verbatim}
+
+앞으로의 분서을 쉽게 하기 위해서 변수명을 수정해 줍니다.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{subway_}\DecValTok{2018}\NormalTok{ <-}\StringTok{ }\KeywordTok{rename}\NormalTok{(subway_}\DecValTok{2018}\NormalTok{,}
+                      \DataTypeTok{rush_user =}\NormalTok{ rush_user_tot,}
+                      \DataTypeTok{notrush_user =}\NormalTok{ notrush_user_tot)}
+\KeywordTok{head}\NormalTok{(subway_}\DecValTok{2018}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 6 x 5
+## # Groups:   date, holiday [6]
+##   date       holiday day       rush_user notrush_user
+##   <date>     <chr>   <chr>         <dbl>        <dbl>
+## 1 2018-01-01 T       Monday            0       704331
+## 2 2018-01-02 F       Tuesday      922781       686791
+## 3 2018-01-03 F       Wednesday    943062       722416
+## 4 2018-01-04 F       Thursday     934506       742750
+## 5 2018-01-05 F       Friday       977363       788476
+## 6 2018-01-06 T       Saturday          0      1262856
+\end{verbatim}
+
+\paragraph{2017년}\label{-1}
+
+2017년 데이터는 10월달부터 데이터의 날짜 형식이 달라져서 분리해서 전처리
+했습니다.
+
+2018년 데이터와 마찬가지로 데이터를 읽어오고, 2호선 승차 데이터만 분리해
+냅니다.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{subway_2017_raw <-}\StringTok{ }\KeywordTok{read.xlsx}\NormalTok{(}\StringTok{"subway/subway_2017.xlsx"}\NormalTok{, }\DataTypeTok{sheet =} \DecValTok{1}\NormalTok{,}\DataTypeTok{startRow =} \DecValTok{2}\NormalTok{, }\DataTypeTok{colNames =} \OtherTok{TRUE}\NormalTok{)}
+\NormalTok{subway_}\DecValTok{2017}\NormalTok{ =}\StringTok{ }\NormalTok{subway_2017_raw }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(on_off }\OperatorTok{==}\StringTok{ '승차'} \OperatorTok{&}\StringTok{ }\NormalTok{line }\OperatorTok{==}\StringTok{ '2'}\NormalTok{) }
+\end{Highlighting}
+\end{Shaded}
+
+2017년 1월\textasciitilde{}9월을 date 형식은 다음과 같습니다.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{str}\NormalTok{(subway_}\DecValTok{2017}\NormalTok{[}\DecValTok{13650}\NormalTok{,]}\OperatorTok{$}\NormalTok{date)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  chr "2017-09-30"
+\end{verbatim}
+
+2017년 10월\textasciitilde{} 12월의 date 형식은 다음과 같습니다.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{str}\NormalTok{(subway_}\DecValTok{2017}\NormalTok{[}\DecValTok{13651}\NormalTok{,]}\OperatorTok{$}\NormalTok{date)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  chr "43009"
+\end{verbatim}
+
+date의 형식이 달라서 2017년의 1월달 \textasciitilde{} 9월달,
+10월달\textasciitilde{} 12월달을 분리하였습니다.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{row <-}\StringTok{ }\KeywordTok{nrow}\NormalTok{(subway_}\DecValTok{2017}\NormalTok{)}
+\NormalTok{subway_2017_1to9 <-}\StringTok{ }\NormalTok{subway_}\DecValTok{2017}\NormalTok{[}\DecValTok{0}\OperatorTok{:}\DecValTok{13650}\NormalTok{,]}
+\NormalTok{subway_2017_10to12 <-}\StringTok{ }\NormalTok{subway_}\DecValTok{2017}\NormalTok{[}\DecValTok{13651}\OperatorTok{:}\NormalTok{row,]}
+\end{Highlighting}
+\end{Shaded}
+
+두 데이터 프레임에 date와 day 변수를 만들어 줍니다.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{subway_2017_1to9}\OperatorTok{$}\NormalTok{day =}\StringTok{ }\KeywordTok{weekdays}\NormalTok{(}\KeywordTok{as.Date}\NormalTok{(subway_2017_1to9}\OperatorTok{$}\NormalTok{date))}
+\NormalTok{subway_2017_1to9}\OperatorTok{$}\NormalTok{date =}\StringTok{ }\KeywordTok{as.Date.character}\NormalTok{(subway_2017_1to9}\OperatorTok{$}\NormalTok{date)}
+\KeywordTok{head}\NormalTok{(subway_2017_1to9)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##         date line subway_code        subway_name on_off 05~06 06~07 07~08
+## 1 2017-01-01    2         201               시청   승차    48    57    70
+## 2 2017-01-01    2         202         을지로입구   승차   114   156   110
+## 3 2017-01-01    2         203          을지로3가   승차    46    74    96
+## 4 2017-01-01    2         204          을지로4가   승차    25    41    46
+## 5 2017-01-01    2         205 동대문역사문화공원   승차   135   103    97
+## 6 2017-01-01    2         206               신당   승차   103   143   162
+##   08~09 09~10 10~11 11~12 12~13 13~14 14~15 15~16 16~17 17~18 18~19 19~20
+## 1   110   161   250   391   452   499   580   650   733   676   640   585
+## 2   164   420   571   880  1102  1346  1626  1796  2095  2356  2572  2073
+## 3   275   248   459   709   646   726   708   752   851   761   563   448
+## 4    61   141   240   246   319   240   256   274   260   272   258   179
+## 5   251   315   465   660   651   801   782  1036  1137  1144   953   921
+## 6   337   363   505   498   570   784   705   783   791   735   546   411
+##   20~21 21~22 22~23 23~24 00.~.01   sum    day
+## 1   498   472   370   214       0  7456 Sunday
+## 2  2006  2443  1903   832       1 24566 Sunday
+## 3   345   295   283    86       0  8371 Sunday
+## 4   143   101   111    35       0  3248 Sunday
+## 5   903   788   730   415       0 12287 Sunday
+## 6   275   250   223    88       0  8272 Sunday
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{subway_2017_10to12}\OperatorTok{$}\NormalTok{date =}\StringTok{ }\KeywordTok{as.Date}\NormalTok{(}\KeywordTok{convertToDate}\NormalTok{(subway_2017_10to12}\OperatorTok{$}\NormalTok{date))}
+\NormalTok{subway_2017_10to12}\OperatorTok{$}\NormalTok{day =}\StringTok{ }\KeywordTok{weekdays}\NormalTok{(}\KeywordTok{as.Date}\NormalTok{(subway_2017_10to12}\OperatorTok{$}\NormalTok{date))}
+\KeywordTok{head}\NormalTok{(subway_2017_10to12)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##             date line subway_code        subway_name on_off 05~06 06~07
+## 13651 2017-10-01    2         201               시청   승차    34    45
+## 13652 2017-10-01    2         202         을지로입구   승차    99    77
+## 13653 2017-10-01    2         203          을지로3가   승차    15    62
+## 13654 2017-10-01    2         204          을지로4가   승차    29    36
+## 13655 2017-10-01    2         205 동대문역사문화공원   승차   120    81
+## 13656 2017-10-01    2         206               신당   승차   141   187
+##       07~08 08~09 09~10 10~11 11~12 12~13 13~14 14~15 15~16 16~17 17~18
+## 13651    55   127   138   268   392   519   591   707   691   716   754
+## 13652    98   280   372   548   798  1132  1371  1670  2025  2236  2499
+## 13653    78   287   308   469   530   762   648   785   707   756   660
+## 13654    51   128   175   248   280   348   354   417   335   360   315
+## 13655   120   261   369   467   545   711   792   831  1122  1094  1160
+## 13656   202   393   585   595   657   794   877   726   801   746   757
+##       18~19 19~20 20~21 21~22 22~23 23~24 00.~.01   sum    day
+## 13651   782   612   604   409   295    79       0  7818 Sunday
+## 13652  2984  2573  3316  2611  1577   692       0 26958 Sunday
+## 13653   595   427   332   311   241   103       0  8076 Sunday
+## 13654   348   237   183   169    98    22       0  4133 Sunday
+## 13655   985  1024   903   922   788   584       0 12879 Sunday
+## 13656   642   444   401   408   225   127       0  9708 Sunday
+\end{verbatim}
+
+형식이 같아진 두 데이터를 합쳐줍니다.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{subway_}\DecValTok{2017}\NormalTok{ =}\StringTok{ }\KeywordTok{rbind}\NormalTok{(subway_2017_1to9, subway_2017_10to12)}
+\KeywordTok{head}\NormalTok{(subway_}\DecValTok{2017}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##         date line subway_code        subway_name on_off 05~06 06~07 07~08
+## 1 2017-01-01    2         201               시청   승차    48    57    70
+## 2 2017-01-01    2         202         을지로입구   승차   114   156   110
+## 3 2017-01-01    2         203          을지로3가   승차    46    74    96
+## 4 2017-01-01    2         204          을지로4가   승차    25    41    46
+## 5 2017-01-01    2         205 동대문역사문화공원   승차   135   103    97
+## 6 2017-01-01    2         206               신당   승차   103   143   162
+##   08~09 09~10 10~11 11~12 12~13 13~14 14~15 15~16 16~17 17~18 18~19 19~20
+## 1   110   161   250   391   452   499   580   650   733   676   640   585
+## 2   164   420   571   880  1102  1346  1626  1796  2095  2356  2572  2073
+## 3   275   248   459   709   646   726   708   752   851   761   563   448
+## 4    61   141   240   246   319   240   256   274   260   272   258   179
+## 5   251   315   465   660   651   801   782  1036  1137  1144   953   921
+## 6   337   363   505   498   570   784   705   783   791   735   546   411
+##   20~21 21~22 22~23 23~24 00.~.01   sum    day
+## 1   498   472   370   214       0  7456 Sunday
+## 2  2006  2443  1903   832       1 24566 Sunday
+## 3   345   295   283    86       0  8371 Sunday
+## 4   143   101   111    35       0  3248 Sunday
+## 5   903   788   730   415       0 12287 Sunday
+## 6   275   250   223    88       0  8272 Sunday
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{tail}\NormalTok{(subway_}\DecValTok{2017}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##             date line subway_code      subway_name on_off 05~06 06~07
+## 18245 2017-12-31    2         245             신답   승차    19    19
+## 18246 2017-12-31    2         246           신설동   승차    31    39
+## 18247 2017-12-31    2         247           도림천   승차     5    14
+## 18248 2017-12-31    2         248         양천구청   승차    77    90
+## 18249 2017-12-31    2         249       신정네거리   승차   101   124
+## 18250 2017-12-31    2         250 용두(동대문구청)   승차    17    22
+##       07~08 08~09 09~10 10~11 11~12 12~13 13~14 14~15 15~16 16~17 17~18
+## 18245    30    48    58    58    65    56    66    43    71    64    39
+## 18246    30    43   109   151   182   260   348   426   574   544   465
+## 18247    18    26    44    33    26    41    40    35    23    27    36
+## 18248   111   206   324   328   306   338   316   290   258   263   221
+## 18249   190   351   510   487   490   499   484   442   454   400   330
+## 18250    32    52    70    63    91   113   115   136   111   137   118
+##       18~19 19~20 20~21 21~22 22~23 23~24 00.~.01  sum    day
+## 18245    21    22    27    17    18    15      18  774 Sunday
+## 18246   538   205   112   139   104    47      21 4368 Sunday
+## 18247    25    26    12    17    10    10       5  473 Sunday
+## 18248   176   116   125   121   129    32      23 3850 Sunday
+## 18249   296   236   185   217   215    81      32 6124 Sunday
+## 18250    90    81    53    49    57    38      15 1460 Sunday
+\end{verbatim}
+
+for(i in 6:25)\{ subway\_2017{[},i{]} = as.integer(subway\_2017{[},i{]})
+\}
+
+holiday 변수에 휴일과 휴일이 아닌 날로 구분하여 넣어줍니다.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{holiday_}\DecValTok{2017}\NormalTok{ =}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{'2017-01-01'}\NormalTok{, }\StringTok{'2017-01-27'}\NormalTok{, }\StringTok{'2017-01-28'}\NormalTok{,}\StringTok{'2017-01-29'}\NormalTok{,}\StringTok{'2017-01-30'}\NormalTok{,}
+                 \StringTok{'2017-03-01'}\NormalTok{,}
+                 \StringTok{'2017-05-01'}\NormalTok{,}\StringTok{'2017-05-03'}\NormalTok{,}\StringTok{'2017-05-05'}\NormalTok{,}\StringTok{'2017-10-02'}\NormalTok{,}
+                 \StringTok{'2017-06-06'}\NormalTok{,}
+                 \StringTok{'2017-08-15'}\NormalTok{,}\StringTok{'2017-05-09'}\NormalTok{,}
+                 \StringTok{'2017-10-03'}\NormalTok{, }\StringTok{'2017-10-04'}\NormalTok{, }\StringTok{'2017-10-05'}\NormalTok{, }\StringTok{'2017-10-06'}\NormalTok{, }\StringTok{'2017-10-09'}\NormalTok{,}
+                \StringTok{'2017-12-25'}\NormalTok{)}
+
+\NormalTok{subway_}\DecValTok{2017}\OperatorTok{$}\NormalTok{holiday =}\StringTok{ }\KeywordTok{ifelse}\NormalTok{(subway_}\DecValTok{2017}\OperatorTok{$}\NormalTok{day }\OperatorTok{%in%}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{'Saturday'}\NormalTok{, }\StringTok{'Sunday'}\NormalTok{) }\OperatorTok{|}\StringTok{ }\NormalTok{subway_}\DecValTok{2017}\OperatorTok{$}\NormalTok{date }\OperatorTok{%in%}\StringTok{ }\KeywordTok{as.Date.character}\NormalTok{(holiday_}\DecValTok{2017}\NormalTok{), }\StringTok{'T'}\NormalTok{, }\StringTok{'F'}\NormalTok{)}
+\KeywordTok{head}\NormalTok{(subway_}\DecValTok{2017}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##         date line subway_code        subway_name on_off 05~06 06~07 07~08
+## 1 2017-01-01    2         201               시청   승차    48    57    70
+## 2 2017-01-01    2         202         을지로입구   승차   114   156   110
+## 3 2017-01-01    2         203          을지로3가   승차    46    74    96
+## 4 2017-01-01    2         204          을지로4가   승차    25    41    46
+## 5 2017-01-01    2         205 동대문역사문화공원   승차   135   103    97
+## 6 2017-01-01    2         206               신당   승차   103   143   162
+##   08~09 09~10 10~11 11~12 12~13 13~14 14~15 15~16 16~17 17~18 18~19 19~20
+## 1   110   161   250   391   452   499   580   650   733   676   640   585
+## 2   164   420   571   880  1102  1346  1626  1796  2095  2356  2572  2073
+## 3   275   248   459   709   646   726   708   752   851   761   563   448
+## 4    61   141   240   246   319   240   256   274   260   272   258   179
+## 5   251   315   465   660   651   801   782  1036  1137  1144   953   921
+## 6   337   363   505   498   570   784   705   783   791   735   546   411
+##   20~21 21~22 22~23 23~24 00.~.01   sum    day holiday
+## 1   498   472   370   214       0  7456 Sunday       T
+## 2  2006  2443  1903   832       1 24566 Sunday       T
+## 3   345   295   283    86       0  8371 Sunday       T
+## 4   143   101   111    35       0  3248 Sunday       T
+## 5   903   788   730   415       0 12287 Sunday       T
+## 6   275   250   223    88       0  8272 Sunday       T
+\end{verbatim}
+
+출퇴근 시간과, 아닌 시간을 분리해서 인원수를 구했습니다. 출퇴근 시간은
+6시부터 10시, 5시부터 9시
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{rush_user_}\DecValTok{2017}\NormalTok{ <-}\StringTok{ }\KeywordTok{ifelse}\NormalTok{(subway_}\DecValTok{2017}\NormalTok{[,}\DecValTok{28}\NormalTok{] }\OperatorTok{==}\StringTok{ 'T'}\NormalTok{,}\DecValTok{0}\NormalTok{, }\KeywordTok{rowSums}\NormalTok{(subway_}\DecValTok{2017}\NormalTok{[,}\KeywordTok{c}\NormalTok{(}\DecValTok{7}\OperatorTok{:}\DecValTok{10}\NormalTok{,}\DecValTok{18}\OperatorTok{:}\DecValTok{21}\NormalTok{)]))}
+\NormalTok{notrush_user_}\DecValTok{2017}\NormalTok{ <-}\StringTok{ }\KeywordTok{ifelse}\NormalTok{(subway_}\DecValTok{2017}\NormalTok{[,}\DecValTok{28}\NormalTok{] }\OperatorTok{==}\StringTok{ 'T'}\NormalTok{,subway_}\DecValTok{2017}\NormalTok{[,}\DecValTok{26}\NormalTok{], subway_}\DecValTok{2017}\NormalTok{[,}\DecValTok{26}\NormalTok{]}\OperatorTok{-}\NormalTok{rush_user_}\DecValTok{2017}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+원래의 subwya\_2017 변수에 rush\_user\_2017 과 notrush\_user\_2017을
+합쳐줍니다.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{subway_}\DecValTok{2017}\NormalTok{ =}\StringTok{ }\KeywordTok{cbind}\NormalTok{(subway_}\DecValTok{2017}\NormalTok{, rush_user_}\DecValTok{2017}\NormalTok{)}
+\NormalTok{subway_}\DecValTok{2017}\NormalTok{ =}\StringTok{ }\KeywordTok{cbind}\NormalTok{(subway_}\DecValTok{2017}\NormalTok{, notrush_user_}\DecValTok{2017}\NormalTok{)}
+\KeywordTok{head}\NormalTok{(subway_}\DecValTok{2017}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##         date line subway_code        subway_name on_off 05~06 06~07 07~08
+## 1 2017-01-01    2         201               시청   승차    48    57    70
+## 2 2017-01-01    2         202         을지로입구   승차   114   156   110
+## 3 2017-01-01    2         203          을지로3가   승차    46    74    96
+## 4 2017-01-01    2         204          을지로4가   승차    25    41    46
+## 5 2017-01-01    2         205 동대문역사문화공원   승차   135   103    97
+## 6 2017-01-01    2         206               신당   승차   103   143   162
+##   08~09 09~10 10~11 11~12 12~13 13~14 14~15 15~16 16~17 17~18 18~19 19~20
+## 1   110   161   250   391   452   499   580   650   733   676   640   585
+## 2   164   420   571   880  1102  1346  1626  1796  2095  2356  2572  2073
+## 3   275   248   459   709   646   726   708   752   851   761   563   448
+## 4    61   141   240   246   319   240   256   274   260   272   258   179
+## 5   251   315   465   660   651   801   782  1036  1137  1144   953   921
+## 6   337   363   505   498   570   784   705   783   791   735   546   411
+##   20~21 21~22 22~23 23~24 00.~.01   sum    day holiday rush_user_2017
+## 1   498   472   370   214       0  7456 Sunday       T              0
+## 2  2006  2443  1903   832       1 24566 Sunday       T              0
+## 3   345   295   283    86       0  8371 Sunday       T              0
+## 4   143   101   111    35       0  3248 Sunday       T              0
+## 5   903   788   730   415       0 12287 Sunday       T              0
+## 6   275   250   223    88       0  8272 Sunday       T              0
+##   notrush_user_2017
+## 1              7456
+## 2             24566
+## 3              8371
+## 4              3248
+## 5             12287
+## 6              8272
+\end{verbatim}
+
+역별, 시간별로 나눠진 데이터를 일자별로 합쳐줍니다.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{subway_}\DecValTok{2017}\NormalTok{ =}\StringTok{ }\NormalTok{subway_}\DecValTok{2017} \OperatorTok{%>%}
+\StringTok{  }\KeywordTok{group_by}\NormalTok{(date,holiday,day) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{summarise}\NormalTok{(}\DataTypeTok{rush_user_tot=} \KeywordTok{sum}\NormalTok{(rush_user_}\DecValTok{2017}\NormalTok{), }\DataTypeTok{notrush_user_tot =} \KeywordTok{sum}\NormalTok{(notrush_user_}\DecValTok{2017}\NormalTok{))}
+\KeywordTok{head}\NormalTok{(subway_}\DecValTok{2017}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 6 x 5
+## # Groups:   date, holiday [6]
+##   date       holiday day       rush_user_tot notrush_user_tot
+##   <date>     <chr>   <chr>             <dbl>            <dbl>
+## 1 2017-01-01 T       Sunday                0           739831
+## 2 2017-01-02 F       Monday           901914           676281
+## 3 2017-01-03 F       Tuesday          935820           721445
+## 4 2017-01-04 F       Wednesday        946006           747858
+## 5 2017-01-05 F       Thursday         940673           764994
+## 6 2017-01-06 F       Friday           983864           807237
+\end{verbatim}
+
+변수의 이름을 변경시켜 줍니다.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{subway_}\DecValTok{2017}\NormalTok{ <-}\StringTok{ }\KeywordTok{rename}\NormalTok{(subway_}\DecValTok{2017}\NormalTok{,}
+                      \DataTypeTok{rush_user =}\NormalTok{ rush_user_tot,}
+                      \DataTypeTok{notrush_user =}\NormalTok{ notrush_user_tot)}
+\KeywordTok{head}\NormalTok{(subway_}\DecValTok{2017}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 6 x 5
+## # Groups:   date, holiday [6]
+##   date       holiday day       rush_user notrush_user
+##   <date>     <chr>   <chr>         <dbl>        <dbl>
+## 1 2017-01-01 T       Sunday            0       739831
+## 2 2017-01-02 F       Monday       901914       676281
+## 3 2017-01-03 F       Tuesday      935820       721445
+## 4 2017-01-04 F       Wednesday    946006       747858
+## 5 2017-01-05 F       Thursday     940673       764994
+## 6 2017-01-06 F       Friday       983864       807237
+\end{verbatim}
+
+위에서 나눠서 전처리한 2017, 2018 데이터를 하나로 합쳐줍니다.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{subway_rush <-}\StringTok{ }\KeywordTok{rbind}\NormalTok{(subway_}\DecValTok{2017}\NormalTok{,subway_}\DecValTok{2018}\NormalTok{)}
+\KeywordTok{head}\NormalTok{(subway_rush)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 6 x 5
+## # Groups:   date, holiday [6]
+##   date       holiday day       rush_user notrush_user
+##   <date>     <chr>   <chr>         <dbl>        <dbl>
+## 1 2017-01-01 T       Sunday            0       739831
+## 2 2017-01-02 F       Monday       901914       676281
+## 3 2017-01-03 F       Tuesday      935820       721445
+## 4 2017-01-04 F       Wednesday    946006       747858
+## 5 2017-01-05 F       Thursday     940673       764994
+## 6 2017-01-06 F       Friday       983864       807237
+\end{verbatim}
+
+합친 데이터에서 평균 rush\_user, notrush\_user의 평균 탑승객 수를
+구합니다. 평일 2호선, 출퇴근 시간에 배차된 지하철 수는 266대, 출퇴근
+시간이 아닐 때는 221대가 배차되어 있습니다. 토요일 : 2호선의 배차 차량은
+총 440대, 일요일의 배차차량은 389대가 배차되어 있습입니다.
+
+먼저 평일의 평균 승객 수 입니다.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{notholiday <-subway_rush }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(holiday }\OperatorTok{==}\StringTok{ 'F'}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{mean_rush_user =} \KeywordTok{round}\NormalTok{((rush_user)}\OperatorTok{/}\DecValTok{266}\NormalTok{)) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{mean_notrush_user =} \KeywordTok{round}\NormalTok{(((notrush_user)}\OperatorTok{/}\DecValTok{221}\NormalTok{)) )}
+
+
+\KeywordTok{head}\NormalTok{(notholiday)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 6 x 7
+## # Groups:   date, holiday [6]
+##   date       holiday day   rush_user notrush_user mean_rush_user
+##   <date>     <chr>   <chr>     <dbl>        <dbl>          <dbl>
+## 1 2017-01-02 F       Mond~    901914       676281           3391
+## 2 2017-01-03 F       Tues~    935820       721445           3518
+## 3 2017-01-04 F       Wedn~    946006       747858           3556
+## 4 2017-01-05 F       Thur~    940673       764994           3536
+## 5 2017-01-06 F       Frid~    983864       807237           3699
+## 6 2017-01-09 F       Mond~    943555       732090           3547
+## # ... with 1 more variable: mean_notrush_user <dbl>
+\end{verbatim}
+
+토요일이면서 공휴일이 아닌날의 평균 승객수입니다. 토요일과 공휴일의 rush
+user는 0으로 가정하였으므로 mean\_rush\_user 또한 0 입니다.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{saturday <-}\StringTok{ }\NormalTok{subway_rush }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(day }\OperatorTok{==}\StringTok{ 'Saturday'} \OperatorTok{&}\StringTok{ }\OperatorTok{!}\NormalTok{(date }\OperatorTok{%in%}\StringTok{ }\NormalTok{(holiday_}\DecValTok{2018}\NormalTok{)) }\OperatorTok{&}\StringTok{ }\OperatorTok{!}\NormalTok{(date }\OperatorTok{%in%}\StringTok{ }\NormalTok{(holiday_}\DecValTok{2017}\NormalTok{))) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{mean_rush_user =} \KeywordTok{round}\NormalTok{((rush_user)}\OperatorTok{/}\DecValTok{1}\NormalTok{)) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{mean_notrush_user =} \KeywordTok{round}\NormalTok{((notrush_user)}\OperatorTok{/}\DecValTok{440}\NormalTok{))}
+\KeywordTok{head}\NormalTok{(saturday)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 6 x 7
+## # Groups:   date, holiday [6]
+##   date       holiday day   rush_user notrush_user mean_rush_user
+##   <date>     <chr>   <chr>     <dbl>        <dbl>          <dbl>
+## 1 2017-01-07 T       Satu~         0      1400875              0
+## 2 2017-01-14 T       Satu~         0      1293646              0
+## 3 2017-01-21 T       Satu~         0      1359534              0
+## 4 2017-01-28 T       Satu~         0       451155              0
+## 5 2017-02-04 T       Satu~         0      1354431              0
+## 6 2017-02-11 T       Satu~         0      1381691              0
+## # ... with 1 more variable: mean_notrush_user <dbl>
+\end{verbatim}
+
+공휴일의 평균 승객 수 입니다.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{redday <-}\StringTok{ }\NormalTok{subway_rush }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(day }\OperatorTok{==}\StringTok{ 'Sunday'} \OperatorTok{|}\StringTok{ }\NormalTok{(date }\OperatorTok{%in%}\StringTok{ }\NormalTok{(holiday_}\DecValTok{2018}\NormalTok{))}\OperatorTok{|}\StringTok{ }\NormalTok{(date }\OperatorTok{%in%}\StringTok{ }\NormalTok{(holiday_}\DecValTok{2017}\NormalTok{))) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{mean_rush_user =} \KeywordTok{round}\NormalTok{((rush_user)}\OperatorTok{/}\DecValTok{1}\NormalTok{)) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{mean_notrush_user =} \KeywordTok{round}\NormalTok{((notrush_user)}\OperatorTok{/}\DecValTok{389}\NormalTok{) )}
+\KeywordTok{head}\NormalTok{(redday)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 6 x 7
+## # Groups:   date, holiday [6]
+##   date       holiday day   rush_user notrush_user mean_rush_user
+##   <date>     <chr>   <chr>     <dbl>        <dbl>          <dbl>
+## 1 2017-01-01 T       Sund~         0       739831              0
+## 2 2017-01-08 T       Sund~         0       942083              0
+## 3 2017-01-15 T       Sund~         0       896018              0
+## 4 2017-01-22 T       Sund~         0       933085              0
+## 5 2017-01-29 T       Sund~         0       667958              0
+## 6 2017-02-05 T       Sund~         0       906935              0
+## # ... with 1 more variable: mean_notrush_user <dbl>
+\end{verbatim}
+
+평균 승객수가 추가된 세개의 데이터를 다시 합쳐줍니다.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{subway_rush <-}\StringTok{ }\KeywordTok{rbind}\NormalTok{(notholiday,saturday,redday)}
+\end{Highlighting}
+\end{Shaded}
+
+\subsubsection{날씨 데이터를 읽어와서 지하철 데이터에 일별로
+합쳐줍니다.}\label{------.}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  비 데이터
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{rain <-}\StringTok{ }\KeywordTok{read.csv}\NormalTok{(}\StringTok{'rain/rain.csv'}\NormalTok{, }\DataTypeTok{header =}\NormalTok{ T)}
+\NormalTok{rain <-}\StringTok{ }\NormalTok{rain[,}\OperatorTok{-}\DecValTok{1}\NormalTok{]}\CommentTok{# 지역코드 삭제}
+\NormalTok{rain}\OperatorTok{$}\NormalTok{date <-}\StringTok{ }\KeywordTok{as.Date}\NormalTok{(rain}\OperatorTok{$}\NormalTok{date)}
+\NormalTok{rain_simple <-}\StringTok{ }\NormalTok{rain[,}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{4}\NormalTok{)] }\CommentTok{# date, 일 강수량만 사용}
+\NormalTok{subway_rush <-}\StringTok{ }\KeywordTok{merge}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ subway_rush, }\DataTypeTok{y =}\NormalTok{ rain_simple, }\DataTypeTok{by =}\StringTok{'date'}\NormalTok{, }\DataTypeTok{all.x =} \OtherTok{TRUE}\NormalTok{)}
+\CommentTok{# 비 안온날 데이터 넣어주기}
+\NormalTok{subway_rush}\OperatorTok{$}\NormalTok{rain <-}\StringTok{ }\KeywordTok{ifelse}\NormalTok{(}\KeywordTok{is.na}\NormalTok{(subway_rush}\OperatorTok{$}\NormalTok{rain), }\DecValTok{0}\NormalTok{, subway_rush}\OperatorTok{$}\NormalTok{rain)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  눈 데이터를 합쳐 주었습니다.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{snow <-}\StringTok{ }\KeywordTok{read.csv}\NormalTok{(}\StringTok{'snow/snow.csv'}\NormalTok{, }\DataTypeTok{header =}\NormalTok{ T)}
+
+\NormalTok{snow <-}\StringTok{ }\NormalTok{snow[,}\OperatorTok{-}\DecValTok{1}\NormalTok{]}
+\NormalTok{snow}\OperatorTok{$}\NormalTok{date <-}\StringTok{ }\KeywordTok{as.Date}\NormalTok{(snow}\OperatorTok{$}\NormalTok{date)}
+\NormalTok{subway_rush <-}\StringTok{ }\KeywordTok{merge}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ subway_rush, }\DataTypeTok{y =}\NormalTok{ snow, }\DataTypeTok{by =}\StringTok{'date'}\NormalTok{, }\DataTypeTok{all.x =} \OtherTok{TRUE}\NormalTok{)}
+\CommentTok{# 눈 안온날 데이터 넣어주기}
+\NormalTok{subway_rush}\OperatorTok{$}\NormalTok{snow <-}\StringTok{ }\KeywordTok{ifelse}\NormalTok{(}\KeywordTok{is.na}\NormalTok{(subway_rush}\OperatorTok{$}\NormalTok{snow), }\DecValTok{0}\NormalTok{, subway_rush}\OperatorTok{$}\NormalTok{snow)}
+\NormalTok{subway_rush}\OperatorTok{$}\NormalTok{newsnow <-}\StringTok{ }\KeywordTok{ifelse}\NormalTok{(}\KeywordTok{is.na}\NormalTok{(subway_rush}\OperatorTok{$}\NormalTok{newsnow), }\DecValTok{0}\NormalTok{, subway_rush}\OperatorTok{$}\NormalTok{newsnow)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  기온 데이터를 합쳐 주었습니다.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{temperature <-}\StringTok{ }\KeywordTok{read.csv}\NormalTok{(}\StringTok{'temperature/temperature.csv'}\NormalTok{, }\DataTypeTok{header =}\NormalTok{ T)}
+
+\NormalTok{temperature <-}\StringTok{ }\NormalTok{temperature[,}\OperatorTok{-}\DecValTok{1}\NormalTok{]}
+\NormalTok{temperature}\OperatorTok{$}\NormalTok{date <-}\StringTok{ }\KeywordTok{as.Date}\NormalTok{(temperature}\OperatorTok{$}\NormalTok{date)}
+\NormalTok{subway_rush <-}\StringTok{ }\KeywordTok{merge}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ subway_rush, }\DataTypeTok{y =}\NormalTok{ temperature, }\DataTypeTok{by =}\StringTok{'date'}\NormalTok{, }\DataTypeTok{all.x =} \OtherTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  습도 데이터를 합쳐 주었습니다.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{humid <-}\StringTok{ }\KeywordTok{read.csv}\NormalTok{(}\StringTok{'humid/humid.csv'}\NormalTok{, }\DataTypeTok{header =}\NormalTok{ T)}
+
+\NormalTok{humid <-}\StringTok{ }\NormalTok{humid[,}\OperatorTok{-}\DecValTok{1}\NormalTok{]}
+\NormalTok{humid}\OperatorTok{$}\NormalTok{date <-}\StringTok{ }\KeywordTok{as.Date}\NormalTok{(humid}\OperatorTok{$}\NormalTok{date)}
+\NormalTok{subway_rush <-}\StringTok{ }\KeywordTok{merge}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ subway_rush, }\DataTypeTok{y =}\NormalTok{ humid, }\DataTypeTok{by =}\StringTok{'date'}\NormalTok{, }\DataTypeTok{all.x =} \OtherTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  바람 데이터를 합쳐 주었습니다.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{wind <-}\StringTok{ }\KeywordTok{read.csv}\NormalTok{(}\StringTok{'wind/wind.csv'}\NormalTok{, }\DataTypeTok{header =}\NormalTok{ T, }\DataTypeTok{stringsAsFactors =}\NormalTok{ F)}
+
+\NormalTok{wind <-}\StringTok{ }\NormalTok{wind[,}\OperatorTok{-}\DecValTok{1}\NormalTok{]}
+
+\NormalTok{wind}\OperatorTok{$}\NormalTok{date <-}\StringTok{ }\KeywordTok{as.Date}\NormalTok{(wind}\OperatorTok{$}\NormalTok{date)}
+\NormalTok{subway_rush <-}\StringTok{ }\KeywordTok{merge}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ subway_rush, }\DataTypeTok{y =}\NormalTok{ wind, }\DataTypeTok{by =}\StringTok{'date'}\NormalTok{, }\DataTypeTok{all.x =} \OtherTok{TRUE}\NormalTok{)}
+\KeywordTok{which}\NormalTok{(}\KeywordTok{is.na}\NormalTok{(subway_rush}\OperatorTok{$}\NormalTok{wind))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## integer(0)
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{View}\NormalTok{(subway_rush)}
+\end{Highlighting}
+\end{Shaded}
+
+혼잡도 레벨을 만들어 줍니다.(뉴스참고)
+
+level 구분 1 : 800 2 : 1600 3 : 2000 4 : 2400 5 : 2800 6 : 3200
+
+\paragraph{바쁜 시간대의 busy leve변수를 만들어
+넣었습니다.}\label{--busy-leve--.}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{subway_rush}\OperatorTok{$}\NormalTok{rush_busylevel <-}\StringTok{ }\KeywordTok{as.factor}\NormalTok{(}\KeywordTok{ifelse}\NormalTok{(subway_rush}\OperatorTok{$}\NormalTok{mean_rush_user}\OperatorTok{<}\DecValTok{800}\NormalTok{, }\DecValTok{1}\NormalTok{,}
+                              \KeywordTok{ifelse}\NormalTok{(subway_rush}\OperatorTok{$}\NormalTok{mean_rush_user}\OperatorTok{<}\DecValTok{1600}\NormalTok{,}\DecValTok{2}\NormalTok{,}
+                                     \KeywordTok{ifelse}\NormalTok{(subway_rush}\OperatorTok{$}\NormalTok{mean_rush_user}\OperatorTok{<}\DecValTok{2000}\NormalTok{,}\DecValTok{3}\NormalTok{,}
+                                            \KeywordTok{ifelse}\NormalTok{(subway_rush}\OperatorTok{$}\NormalTok{mean_rush_user}\OperatorTok{<}\DecValTok{2400}\NormalTok{,}\DecValTok{4}\NormalTok{,}
+                                                   \KeywordTok{ifelse}\NormalTok{(subway_rush}\OperatorTok{$}\NormalTok{mean_rush_user}\OperatorTok{<}\DecValTok{2800}\NormalTok{,}\DecValTok{5}\NormalTok{,}
+                                                          \KeywordTok{ifelse}\NormalTok{(subway_rush}\OperatorTok{$}\NormalTok{mean_rush_user}\OperatorTok{<}\DecValTok{3200}\NormalTok{,}\DecValTok{6}\NormalTok{,}\DecValTok{7}\NormalTok{)))))))}
+\KeywordTok{head}\NormalTok{(subway_rush}\OperatorTok{$}\NormalTok{rush_busylevel)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1 7 7 7 7 7
+## Levels: 1 6 7
+\end{verbatim}
+
+바쁘지 않은 시간대의 busy leve변수를 만들어 넣었습니다.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{subway_rush}\OperatorTok{$}\NormalTok{notrush_busylevel <-}\StringTok{ }\KeywordTok{as.factor}\NormalTok{(}\KeywordTok{ifelse}\NormalTok{(subway_rush}\OperatorTok{$}\NormalTok{mean_notrush_user}\OperatorTok{<}\DecValTok{800}\NormalTok{, }\DecValTok{1}\NormalTok{,}
+                                 \KeywordTok{ifelse}\NormalTok{(subway_rush}\OperatorTok{$}\NormalTok{mean_notrush_user}\OperatorTok{<}\DecValTok{1600}\NormalTok{,}\DecValTok{2}\NormalTok{,}
+                                        \KeywordTok{ifelse}\NormalTok{(subway_rush}\OperatorTok{$}\NormalTok{mean_notrush_user}\OperatorTok{<}\DecValTok{2000}\NormalTok{,}\DecValTok{3}\NormalTok{,}
+                                               \KeywordTok{ifelse}\NormalTok{(subway_rush}\OperatorTok{$}\NormalTok{mean_notrush_user}\OperatorTok{<}\DecValTok{2400}\NormalTok{,}\DecValTok{4}\NormalTok{,}
+                                                      \KeywordTok{ifelse}\NormalTok{(subway_rush}\OperatorTok{$}\NormalTok{mean_notrush_user}\OperatorTok{<}\DecValTok{2800}\NormalTok{,}\DecValTok{5}\NormalTok{,}
+                                                             \KeywordTok{ifelse}\NormalTok{(subway_rush}\OperatorTok{$}\NormalTok{mean_rush_user}\OperatorTok{<}\DecValTok{3200}\NormalTok{,}\DecValTok{6}\NormalTok{,}\DecValTok{7}\NormalTok{)))))))}
+\KeywordTok{head}\NormalTok{(subway_rush}\OperatorTok{$}\NormalTok{notrush_busylevel)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 3 7 7 7 7 7
+## Levels: 2 3 4 5 6 7
+\end{verbatim}
+
+\paragraph{휴일에는 출퇴근 하는 사람이 없다고 가정하였으므로, 휴일,
+출퇴근 시간 혼잡도 레벨을 0으로 두었습니다.}\label{-----------0-.}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{subway_rush}\OperatorTok{$}\NormalTok{rush_busylevel <-}\StringTok{ }\KeywordTok{ifelse}\NormalTok{(subway_rush}\OperatorTok{$}\NormalTok{holiday }\OperatorTok{==}\StringTok{ 'T'}\NormalTok{, }\DecValTok{0}\NormalTok{, subway_rush}\OperatorTok{$}\NormalTok{rush_busylevel)}
+\KeywordTok{head}\NormalTok{(subway_rush)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##         date holiday       day rush_user notrush_user mean_rush_user
+## 1 2017-01-01       T    Sunday         0       739831              0
+## 2 2017-01-02       F    Monday    901914       676281           3391
+## 3 2017-01-03       F   Tuesday    935820       721445           3518
+## 4 2017-01-04       F Wednesday    946006       747858           3556
+## 5 2017-01-05       F  Thursday    940673       764994           3536
+## 6 2017-01-06       F    Friday    983864       807237           3699
+##   mean_notrush_user rain newsnow snow meantemp lowtemp hightemp humid wind
+## 1              1902  0.0       0    0      2.7    -1.6      6.9  75.9  1.5
+## 2              3060  0.3       0    0      5.0     1.8      9.2  77.8  2.1
+## 3              3264  0.0       0    0      2.0    -2.3      7.7  61.8  1.8
+## 4              3384  0.0       0    0      3.9     1.0      8.9  55.0  1.7
+## 5              3462  0.0       0    0      3.8    -0.1      7.3  52.3  3.1
+## 6              3653  0.0       0    0      5.4     2.5     11.4  58.5  2.4
+##   rush_busylevel notrush_busylevel
+## 1              0                 3
+## 2              3                 7
+## 3              3                 7
+## 4              3                 7
+## 5              3                 7
+## 6              3                 7
+\end{verbatim}
+
+\paragraph{outlier 제거 : 일요일을 제외한 공휴일은 날씨와 상관없이
+사람수가 적으므로 outlier로
+보았습니다.}\label{outlier---------outlier-.}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{subway_rush <-}\StringTok{ }\NormalTok{subway_rush  }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{( }\OperatorTok{!}\NormalTok{(date }\OperatorTok{%in%}\StringTok{ }\NormalTok{(holiday_}\DecValTok{2018}\NormalTok{)) }\OperatorTok{&}\StringTok{ }\OperatorTok{!}\NormalTok{(date }\OperatorTok{%in%}\StringTok{ }\NormalTok{(holiday_}\DecValTok{2017}\NormalTok{))) }
+\end{Highlighting}
+\end{Shaded}
+
+\paragraph{knn 분석을 위해 휴일과, 휴일이 아닌 날로
+나누었습니다.}\label{knn-------.}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{notholiday <-}\StringTok{ }\NormalTok{subway_rush }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(holiday}\OperatorTok{==}\StringTok{'F'}\NormalTok{)}
+
+\NormalTok{holiday <-}\StringTok{ }\NormalTok{subway_rush }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(holiday}\OperatorTok{==}\StringTok{'T'}\NormalTok{)}
+
+\KeywordTok{head}\NormalTok{(holiday)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##         date holiday      day rush_user notrush_user mean_rush_user
+## 1 2017-01-01       T   Sunday         0       739831              0
+## 2 2017-01-07       T Saturday         0      1400875              0
+## 3 2017-01-08       T   Sunday         0       942083              0
+## 4 2017-01-14       T Saturday         0      1293646              0
+## 5 2017-01-15       T   Sunday         0       896018              0
+## 6 2017-01-21       T Saturday         0      1359534              0
+##   mean_notrush_user rain newsnow snow meantemp lowtemp hightemp humid wind
+## 1              1902  0.0     0.0  0.0      2.7    -1.6      6.9  75.9  1.5
+## 2              3184  0.0     0.0  0.0      4.6     0.0     10.5  64.9  1.4
+## 3              2422  0.0     0.0  0.0      6.5     4.0     10.9  61.4  2.6
+## 4              2940  0.0     0.0  0.0     -8.4   -10.5     -5.4  33.3  3.8
+## 5              2303  0.0     0.0  0.0     -6.6   -11.5     -0.9  35.3  2.3
+## 6              3090  2.1     3.2  5.7     -5.2   -10.0     -0.9  78.1  1.6
+##   rush_busylevel notrush_busylevel
+## 1              0                 3
+## 2              0                 6
+## 3              0                 5
+## 4              0                 6
+## 5              0                 4
+## 6              0                 6
+\end{verbatim}
+
+\paragraph{위에서 나눈 레벨에 따라 레벨 변수를
+추가하였습니다.}\label{------.}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot}\NormalTok{(notholiday}\OperatorTok{$}\NormalTok{rush_busylevel)}\CommentTok{# 평일 출퇴근 시간의 혼잡도 구간 분포}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Subway_files/figure-latex/unnamed-chunk-37-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot}\NormalTok{(notholiday}\OperatorTok{$}\NormalTok{notrush_busylevel)}\CommentTok{# 평일 출퇴근 시간이 아닌때의 구간 혼잡도 분포}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Subway_files/figure-latex/unnamed-chunk-38-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot}\NormalTok{(holiday}\OperatorTok{$}\NormalTok{notrush_busylevel)}\CommentTok{#휴일의 혼잡도 구간 분포}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Subway_files/figure-latex/unnamed-chunk-39-1.pdf}
+
+\subsection{휴일, 바쁘지 않은 시간대 예측(holiday, not rush user
+)}\label{----holiday-not-rush-user}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{holiday.knn <-}\StringTok{ }\NormalTok{holiday}
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{2019}\NormalTok{)}
+\NormalTok{nholiday.knn <-}\StringTok{ }\KeywordTok{nrow}\NormalTok{(holiday.knn) }
+\NormalTok{rgroup <-}\StringTok{ }\KeywordTok{runif}\NormalTok{(nholiday.knn)}
+
+\CommentTok{# data partition to learn a prediction model }
+\NormalTok{train.knn <-}\StringTok{ }\KeywordTok{subset}\NormalTok{(holiday.knn, rgroup }\OperatorTok{<=}\StringTok{ }\FloatTok{0.8}\NormalTok{)}
+
+\CommentTok{# hold-out data for testing}
+\NormalTok{test.knn <-}\StringTok{ }\KeywordTok{subset}\NormalTok{(holiday.knn, rgroup }\OperatorTok{>}\StringTok{ }\FloatTok{0.8}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\paragraph{정규화를 해줍니다.}\label{-.}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# min-max normalization}
+\NormalTok{minmax_norm <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x) \{}
+\NormalTok{  (x}\OperatorTok{-}\KeywordTok{min}\NormalTok{(x))}\OperatorTok{/}\NormalTok{(}\KeywordTok{max}\NormalTok{(x)}\OperatorTok{-}\KeywordTok{min}\NormalTok{(x))}
+\NormalTok{\}}
+
+\NormalTok{train.knn}\OperatorTok{$}\NormalTok{rain <-}\StringTok{ }\KeywordTok{minmax_norm}\NormalTok{(train.knn}\OperatorTok{$}\NormalTok{rain)}
+\NormalTok{train.knn}\OperatorTok{$}\NormalTok{newsnow <-}\StringTok{ }\KeywordTok{minmax_norm}\NormalTok{(train.knn}\OperatorTok{$}\NormalTok{newsnow)}
+\NormalTok{train.knn}\OperatorTok{$}\NormalTok{snow <-}\StringTok{ }\KeywordTok{minmax_norm}\NormalTok{(train.knn}\OperatorTok{$}\NormalTok{snow) }
+\NormalTok{train.knn}\OperatorTok{$}\NormalTok{meantemp <-}\StringTok{ }\KeywordTok{minmax_norm}\NormalTok{(train.knn}\OperatorTok{$}\NormalTok{meantemp)}
+\NormalTok{train.knn}\OperatorTok{$}\NormalTok{lowtemp  <-}\StringTok{ }\KeywordTok{minmax_norm}\NormalTok{(train.knn}\OperatorTok{$}\NormalTok{lowtemp)}
+\NormalTok{train.knn}\OperatorTok{$}\NormalTok{hightemp <-}\StringTok{ }\KeywordTok{minmax_norm}\NormalTok{(train.knn}\OperatorTok{$}\NormalTok{hightemp)}
+\NormalTok{train.knn}\OperatorTok{$}\NormalTok{humid <-}\StringTok{ }\KeywordTok{minmax_norm}\NormalTok{(train.knn}\OperatorTok{$}\NormalTok{humid) }
+\NormalTok{train.knn}\OperatorTok{$}\NormalTok{wind <-}\StringTok{ }\KeywordTok{minmax_norm}\NormalTok{(train.knn}\OperatorTok{$}\NormalTok{wind)}
+
+
+\NormalTok{test.knn}\OperatorTok{$}\NormalTok{rain <-}\StringTok{ }\KeywordTok{minmax_norm}\NormalTok{(test.knn}\OperatorTok{$}\NormalTok{rain)}
+\NormalTok{test.knn}\OperatorTok{$}\NormalTok{meantemp <-}\StringTok{ }\KeywordTok{minmax_norm}\NormalTok{(test.knn}\OperatorTok{$}\NormalTok{meantemp)}
+\NormalTok{test.knn}\OperatorTok{$}\NormalTok{lowtemp  <-}\StringTok{ }\KeywordTok{minmax_norm}\NormalTok{(test.knn}\OperatorTok{$}\NormalTok{lowtemp)}
+\NormalTok{test.knn}\OperatorTok{$}\NormalTok{hightemp <-}\StringTok{ }\KeywordTok{minmax_norm}\NormalTok{(test.knn}\OperatorTok{$}\NormalTok{hightemp)}
+\NormalTok{test.knn}\OperatorTok{$}\NormalTok{humid <-}\StringTok{ }\KeywordTok{minmax_norm}\NormalTok{(test.knn}\OperatorTok{$}\NormalTok{humid) }
+\NormalTok{test.knn}\OperatorTok{$}\NormalTok{wind <-}\StringTok{ }\KeywordTok{minmax_norm}\NormalTok{(test.knn}\OperatorTok{$}\NormalTok{wind) }
+\end{Highlighting}
+\end{Shaded}
+
+\paragraph{정규화를 마친 데이터를 설명변수와 목적변수로
+구별합니다.}\label{-----.}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{train.knn_new  <-}\StringTok{  }\NormalTok{train.knn[,}\KeywordTok{c}\NormalTok{(}\StringTok{'rain'}\NormalTok{,}\StringTok{'newsnow'}\NormalTok{,}\StringTok{'snow'}\NormalTok{,}\StringTok{'meantemp'}\NormalTok{,}\StringTok{'lowtemp'}\NormalTok{,}\StringTok{'hightemp'}\NormalTok{,}\StringTok{'humid'}\NormalTok{,}\StringTok{'wind'}\NormalTok{)]}
+\NormalTok{train.knn_label <-}\StringTok{ }\NormalTok{train.knn[,}\KeywordTok{c}\NormalTok{(}\StringTok{'notrush_busylevel'}\NormalTok{)]}
+\NormalTok{test.knn_new <-}\StringTok{  }\NormalTok{test.knn[,}\KeywordTok{c}\NormalTok{(}\StringTok{'rain'}\NormalTok{,}\StringTok{'newsnow'}\NormalTok{,}\StringTok{'snow'}\NormalTok{,}\StringTok{'meantemp'}\NormalTok{,}\StringTok{'lowtemp'}\NormalTok{,}\StringTok{'hightemp'}\NormalTok{,}\StringTok{'humid'}\NormalTok{,}\StringTok{'wind'}\NormalTok{)]}
+\NormalTok{test.knn_label <-}\StringTok{ }\NormalTok{test.knn[,}\KeywordTok{c}\NormalTok{(}\StringTok{'notrush_busylevel'}\NormalTok{)]}
+\end{Highlighting}
+\end{Shaded}
+
+\paragraph{Knn에 사용할 K의 값은 root연산을
+이용하였습니다.}\label{knn--k--root-.}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# choosing proper k }
+\KeywordTok{sqrt}\NormalTok{(}\KeywordTok{nrow}\NormalTok{(train.knn)) }\CommentTok{# 13}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 13.11488
+\end{verbatim}
+
+\paragraph{knn을 사용하여 예측을 하고 정확도를
+구해보았습니다.}\label{knn-----.}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(class)}
+\KeywordTok{table}\NormalTok{(}\KeywordTok{is.na}\NormalTok{(test.knn_new))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## FALSE 
+##   296
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{train.knn_pred <-}\StringTok{  }\KeywordTok{knn}\NormalTok{(}\DataTypeTok{train =}\NormalTok{ train.knn_new, }\DataTypeTok{test =}\NormalTok{ test.knn_new , }\DataTypeTok{cl =}\NormalTok{ train.knn_label, }\DataTypeTok{k =} \DecValTok{13}\NormalTok{)}
+\NormalTok{tbl =}\StringTok{ }\KeywordTok{table}\NormalTok{(test.knn_label,train.knn_pred)}
+\CommentTok{# acc}
+\NormalTok{acc <-}\StringTok{ }\DecValTok{11}\OperatorTok{/}\DecValTok{37}
+\NormalTok{acc}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.2972973
+\end{verbatim}
+
+\subsection{평일, 바쁘지 않은 시간대 예측(not holiday, not rush
+user)}\label{----not-holiday-not-rush-user}
+
+\subsubsection{위와 같은 방식으로 해주었습니다.}\label{---.}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# test, train 나누기}
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{2019}\NormalTok{)}
+\NormalTok{nnotholiday <-}\StringTok{ }\KeywordTok{nrow}\NormalTok{(notholiday)}
+\NormalTok{rgroup <-}\StringTok{ }\KeywordTok{runif}\NormalTok{(nnotholiday)}
+
+\NormalTok{train <-}\StringTok{ }\KeywordTok{subset}\NormalTok{(notholiday, rgroup }\OperatorTok{<=}\StringTok{ }\FloatTok{0.8}\NormalTok{)}
+\NormalTok{test <-}\StringTok{ }\KeywordTok{subset}\NormalTok{(notholiday, rgroup }\OperatorTok{>}\StringTok{ }\FloatTok{0.8}\NormalTok{)}
+
+\KeywordTok{table}\NormalTok{(}\KeywordTok{is.na}\NormalTok{(train))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## FALSE 
+##  6851
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{sum}\NormalTok{(}\KeywordTok{is.na}\NormalTok{(test))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 목적변수 확인.}
+\KeywordTok{unique}\NormalTok{(train}\OperatorTok{$}\NormalTok{notrush_busylevel)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 7 6
+## Levels: 2 3 4 5 6 7
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{train.knn  <-}\StringTok{  }\NormalTok{train[,}\KeywordTok{c}\NormalTok{(}\StringTok{'rain'}\NormalTok{,}\StringTok{'newsnow'}\NormalTok{,}\StringTok{'snow'}\NormalTok{,}\StringTok{'meantemp'}\NormalTok{,}\StringTok{'lowtemp'}\NormalTok{,}\StringTok{'hightemp'}\NormalTok{,}\StringTok{'humid'}\NormalTok{,}\StringTok{'wind'}\NormalTok{)]}
+\NormalTok{train.label <-}\StringTok{ }\NormalTok{train[,}\KeywordTok{c}\NormalTok{(}\StringTok{'rush_busylevel'}\NormalTok{)]}
+\NormalTok{test.knn <-}\StringTok{  }\NormalTok{test[,}\KeywordTok{c}\NormalTok{(}\StringTok{'rain'}\NormalTok{,}\StringTok{'newsnow'}\NormalTok{,}\StringTok{'snow'}\NormalTok{,}\StringTok{'meantemp'}\NormalTok{,}\StringTok{'lowtemp'}\NormalTok{,}\StringTok{'hightemp'}\NormalTok{,}\StringTok{'humid'}\NormalTok{,}\StringTok{'wind'}\NormalTok{)]}
+\NormalTok{test.label <-}\StringTok{ }\NormalTok{test[,}\KeywordTok{c}\NormalTok{(}\StringTok{'rush_busylevel'}\NormalTok{)]}
+
+\CommentTok{# normalization을 해준다. }
+
+\NormalTok{train.knn.norm <-}\StringTok{ }\KeywordTok{sapply}\NormalTok{(train.knn, minmax_norm) }\CommentTok{#diagnosis를 제외한 변수들에 minmax_norm 적용.}
+\NormalTok{test.knn.norm <-}\StringTok{ }\KeywordTok{sapply}\NormalTok{(test.knn,minmax_norm)}
+
+
+\CommentTok{# determine k}
+\KeywordTok{sqrt}\NormalTok{(}\KeywordTok{nrow}\NormalTok{(train.knn)) }\CommentTok{# k = 20 으로 잡는다.}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 20.07486
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(class)}
+
+\CommentTok{# k = 20일 때, 예측.}
+\NormalTok{train.pred <-}\StringTok{ }\KeywordTok{knn}\NormalTok{(}\DataTypeTok{train =}\NormalTok{ train.knn.norm, }\DataTypeTok{test =}\NormalTok{ test.knn.norm, }\DataTypeTok{cl =}\NormalTok{ train.label, }\DataTypeTok{k =} \DecValTok{20}\NormalTok{)}
+
+\NormalTok{cmat <-}\StringTok{ }\KeywordTok{table}\NormalTok{(test.label, train.pred)}
+\NormalTok{cmat}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##           train.pred
+## test.label  2  3
+##          3  0 86
+\end{verbatim}
+
+\subsection{평일, 출퇴근 시간 not holiday, rush
+user}\label{---not-holiday-rush-user}
+
+위와 같은 방법으로 했습니다.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# test, train 나누기}
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{2019}\NormalTok{)}
+\NormalTok{nnotholiday <-}\StringTok{ }\KeywordTok{nrow}\NormalTok{(notholiday)}
+\NormalTok{rgroup <-}\StringTok{ }\KeywordTok{runif}\NormalTok{(nnotholiday)}
+
+\NormalTok{train <-}\StringTok{ }\KeywordTok{subset}\NormalTok{(notholiday, rgroup }\OperatorTok{<=}\StringTok{ }\FloatTok{0.8}\NormalTok{)}
+\NormalTok{test <-}\StringTok{ }\KeywordTok{subset}\NormalTok{(notholiday, rgroup }\OperatorTok{>}\StringTok{ }\FloatTok{0.8}\NormalTok{)}
+
+\KeywordTok{dim}\NormalTok{(train)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 403  17
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{dim}\NormalTok{(test)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 86 17
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#knn 분석에 사용 할 변수만 가져오기}
+\KeywordTok{str}\NormalTok{(notholiday)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 'data.frame':    489 obs. of  17 variables:
+##  $ date             : Date, format: "2017-01-02" "2017-01-03" ...
+##  $ holiday          : chr  "F" "F" "F" "F" ...
+##  $ day              : chr  "Monday" "Tuesday" "Wednesday" "Thursday" ...
+##  $ rush_user        : num  901914 935820 946006 940673 983864 ...
+##  $ notrush_user     : num  676281 721445 747858 764994 807237 ...
+##  $ mean_rush_user   : num  3391 3518 3556 3536 3699 ...
+##  $ mean_notrush_user: num  3060 3264 3384 3462 3653 ...
+##  $ rain             : num  0.3 0 0 0 0 0 0 0 0 0.6 ...
+##  $ newsnow          : num  0 0 0 0 0 0 0 0 0.1 1.5 ...
+##  $ snow             : num  0 0 0 0 0 0 0 0 0.1 1.5 ...
+##  $ meantemp         : num  5 2 3.9 3.8 5.4 1.5 -3.7 -3.8 -2.2 -6 ...
+##  $ lowtemp          : num  1.8 -2.3 1 -0.1 2.5 -3.1 -7.4 -9.4 -6.1 -8.6 ...
+##  $ hightemp         : num  9.2 7.7 8.9 7.3 11.4 4.3 1.1 1.5 1 -1.4 ...
+##  $ humid            : num  77.8 61.8 55 52.3 58.5 60.8 45.1 36.4 43.1 47.4 ...
+##  $ wind             : num  2.1 1.8 1.7 3.1 2.4 3.3 3.2 2.1 3.1 2.9 ...
+##  $ rush_busylevel   : num  3 3 3 3 3 3 3 3 3 3 ...
+##  $ notrush_busylevel: Factor w/ 6 levels "2","3","4","5",..: 6 6 6 6 6 6 6 6 6 6 ...
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{train_knn <-}\StringTok{  }\NormalTok{train[,}\KeywordTok{c}\NormalTok{(}\StringTok{'rain'}\NormalTok{,}\StringTok{'newsnow'}\NormalTok{,}\StringTok{'snow'}\NormalTok{,}\StringTok{'meantemp'}\NormalTok{,}\StringTok{'lowtemp'}\NormalTok{,}\StringTok{'hightemp'}\NormalTok{,}\StringTok{'humid'}\NormalTok{,}\StringTok{'wind'}\NormalTok{)]}
+\NormalTok{train_label <-}\StringTok{ }\NormalTok{train[,}\KeywordTok{c}\NormalTok{(}\StringTok{'rush_busylevel'}\NormalTok{)]}
+\NormalTok{test_knn <-}\StringTok{  }\NormalTok{test[,}\KeywordTok{c}\NormalTok{(}\StringTok{'rain'}\NormalTok{,}\StringTok{'newsnow'}\NormalTok{,}\StringTok{'snow'}\NormalTok{,}\StringTok{'meantemp'}\NormalTok{,}\StringTok{'lowtemp'}\NormalTok{,}\StringTok{'hightemp'}\NormalTok{,}\StringTok{'humid'}\NormalTok{,}\StringTok{'wind'}\NormalTok{)]}
+\NormalTok{test_label <-}\StringTok{ }\NormalTok{test[,}\KeywordTok{c}\NormalTok{(}\StringTok{'rush_busylevel'}\NormalTok{)]}
+
+
+\NormalTok{train_knn_norm <-}\StringTok{ }\KeywordTok{sapply}\NormalTok{(train_knn, minmax_norm)}
+\NormalTok{test_knn_norm <-}\StringTok{ }\KeywordTok{sapply}\NormalTok{(test_knn, minmax_norm)}
+
+\CommentTok{# k 의 수 구하기}
+\KeywordTok{sqrt}\NormalTok{(}\KeywordTok{nrow}\NormalTok{(train_knn))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 20.07486
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# making prediction}
+\KeywordTok{library}\NormalTok{(class)}
+\NormalTok{level_test_pred <-}\StringTok{ }\KeywordTok{knn}\NormalTok{(}\DataTypeTok{train =} \KeywordTok{is.na}\NormalTok{(train_knn_norm), }\DataTypeTok{test =} \KeywordTok{is.na}\NormalTok{(test_knn_norm), }\DataTypeTok{cl =}\NormalTok{ train_label,}
+                       \DataTypeTok{k =} \DecValTok{20}\NormalTok{)}
+
+\CommentTok{# performance}
+\NormalTok{  tbl <-}\StringTok{ }\KeywordTok{table}\NormalTok{(test_label,level_test_pred)}
+\NormalTok{  acc =}\StringTok{  }\NormalTok{(}\DecValTok{0}\OperatorTok{+}\DecValTok{91}\NormalTok{)}\OperatorTok{/}\DecValTok{92}
+\NormalTok{  acc}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.9891304
+\end{verbatim}
+
+
+\end{document}

@@ -1,0 +1,525 @@
+---
+title: "Subway"
+author: "Jihyun"
+date: "7/16/2019"
+output:
+  html_document: default
+  pdf_document: default
+  word_document: default
+---
+# 날씨에 따른 서울 지하철 2호선 혼잡도 예상
+## 1. 데이터 전처리
+
+```{r}
+library(openxlsx)
+library(dplyr)
+```
+
+### 지하철 데이터를 읽어옵니다. 
+#### 2018년
+
+```{r}
+# 2018년 데이터
+subway_2018_raw <- read.xlsx("subway/subway_2018.xlsx", sheet = 1,startRow = 2, colNames = TRUE)
+```
+
+2018년도의 일별 2호선 승차 데이터를 분리해 냅니다.
+
+```{r}
+subway_2018 <- subway_2018_raw %>%
+  filter(on_off == '승차' & line == '2호선') 
+```
+
+num 형태의 date를 date 형태로 변형하고, date 변수를 통해 day를 변수를 만들어 줍니다.
+```{r}
+subway_2018$date <- convertToDate(subway_2018$date)# 43101 -> 2018-01-01
+subway_2018$day <- weekdays(as.Date(subway_2018$date)) #2018-01-01 -> Monday
+```
+
+휴일과 아닌날을 구분하기 위해 2018년의 공휴일 리스트를 가져온 후,
+holiday 변수에 휴일과 아닌날을 구분해 줍니다.
+
+```{r}
+holiday_2018 <- c('2018-01-01', '2018-02-15', '2018-02-16', '2018-02-17',
+            '2018-03-01', '2018-05-05', '2018-05-22', '2018-06-06',
+            '2018-06-13', '2018-05-07', '2018-05-06', '2018-05-01',
+            '2018-08-15', '2018-09-23', '2018-09-24', '2018-09-26',
+            '2018-09-25', '2018-10-03', '2018-10-09', '2018-12-25')
+
+subway_2018$holiday <- ifelse(subway_2018$day %in% c('Saturday', 'Sunday') | subway_2018$date %in% as.Date.character(holiday_2018), 'T', 'F')
+
+```
+오전 6시부터 10시, 오후 5시부터 9시까지 출퇴근 시간대로 구분하여 각 날의 출퇴근 인원을
+rush_user변수에 담았습니다.
+휴일에는 출퇴근 인원이 없다고 가정하여, notrush_user에 전체 인원을 넣었습니다.
+```{r}
+rush_user_2018 <- ifelse(subway_2018[,"holiday"] == 'T',0, rowSums(subway_2018[,c(7:10,18:21)]))
+notrush_user_2018 <- ifelse(subway_2018[,"holiday"] == 'T',subway_2018[,26], subway_2018[,26]-rush_user_2018)
+```
+구한 rush_usre와 notrush_user를 subway_2018변수와 합쳐줍니다.
+```{r}
+subway_2018 = cbind(subway_2018, rush_user_2018)
+subway_2018 = cbind(subway_2018, notrush_user_2018)
+head(subway_2018)
+```
+
+시간대별로, 지하철 역 별로 나눠진 인원을 일자별로 합쳐줍니다.
+```{r}
+subway_2018 = subway_2018 %>%
+  group_by(date,holiday,day) %>%
+  summarise(rush_user_tot= sum(rush_user_2018), notrush_user_tot = sum(notrush_user_2018))
+head(subway_2018)
+```
+
+앞으로의 분서을 쉽게 하기 위해서 변수명을 수정해 줍니다.
+
+```{r}
+subway_2018 <- rename(subway_2018,
+                      rush_user = rush_user_tot,
+                      notrush_user = notrush_user_tot)
+head(subway_2018)
+```
+
+
+#### 2017년
+2017년 데이터는 10월달부터 데이터의 날짜 형식이 달라져서 분리해서 전처리 했습니다.
+
+2018년 데이터와 마찬가지로 데이터를 읽어오고, 2호선 승차 데이터만 분리해 냅니다.
+```{r}
+subway_2017_raw <- read.xlsx("subway/subway_2017.xlsx", sheet = 1,startRow = 2, colNames = TRUE)
+subway_2017 = subway_2017_raw %>%
+  filter(on_off == '승차' & line == '2') 
+```
+
+
+
+2017년 1월~9월을 date 형식은 다음과 같습니다.
+```{r}
+str(subway_2017[13650,]$date)
+```
+
+2017년 10월~ 12월의  date 형식은 다음과 같습니다.
+```{r}
+str(subway_2017[13651,]$date)
+```
+
+date의 형식이 달라서 2017년의 1월달 ~ 9월달, 10월달~ 12월달을 분리하였습니다.
+```{r}
+row <- nrow(subway_2017)
+subway_2017_1to9 <- subway_2017[0:13650,]
+subway_2017_10to12 <- subway_2017[13651:row,]
+```
+
+두 데이터 프레임에 date와 day 변수를 만들어 줍니다.
+
+```{r}
+subway_2017_1to9$day = weekdays(as.Date(subway_2017_1to9$date))
+subway_2017_1to9$date = as.Date.character(subway_2017_1to9$date)
+head(subway_2017_1to9)
+```
+
+
+```{r}
+subway_2017_10to12$date = as.Date(convertToDate(subway_2017_10to12$date))
+subway_2017_10to12$day = weekdays(as.Date(subway_2017_10to12$date))
+head(subway_2017_10to12)
+```
+형식이 같아진 두 데이터를 합쳐줍니다.
+```{r}
+subway_2017 = rbind(subway_2017_1to9, subway_2017_10to12)
+head(subway_2017)
+tail(subway_2017)
+```
+
+
+
+
+for(i in 6:25){
+  subway_2017[,i] = as.integer(subway_2017[,i])
+}
+
+holiday 변수에 휴일과 휴일이 아닌 날로 구분하여 넣어줍니다.
+```{r}
+holiday_2017 = c('2017-01-01', '2017-01-27', '2017-01-28','2017-01-29','2017-01-30',
+                 '2017-03-01',
+                 '2017-05-01','2017-05-03','2017-05-05','2017-10-02',
+                 '2017-06-06',
+                 '2017-08-15','2017-05-09',
+                 '2017-10-03', '2017-10-04', '2017-10-05', '2017-10-06', '2017-10-09',
+                '2017-12-25')
+
+subway_2017$holiday = ifelse(subway_2017$day %in% c('Saturday', 'Sunday') | subway_2017$date %in% as.Date.character(holiday_2017), 'T', 'F')
+head(subway_2017)
+```
+
+출퇴근 시간과, 아닌 시간을 분리해서 인원수를 구했습니다.
+출퇴근 시간은 6시부터 10시, 5시부터 9시
+```{r}
+rush_user_2017 <- ifelse(subway_2017[,28] == 'T',0, rowSums(subway_2017[,c(7:10,18:21)]))
+notrush_user_2017 <- ifelse(subway_2017[,28] == 'T',subway_2017[,26], subway_2017[,26]-rush_user_2017)
+```
+
+원래의 subwya_2017 변수에 rush_user_2017 과 notrush_user_2017을 합쳐줍니다.
+```{r}
+subway_2017 = cbind(subway_2017, rush_user_2017)
+subway_2017 = cbind(subway_2017, notrush_user_2017)
+head(subway_2017)
+```
+
+역별, 시간별로 나눠진 데이터를 일자별로 합쳐줍니다.
+```{r}
+
+subway_2017 = subway_2017 %>%
+  group_by(date,holiday,day) %>%
+  summarise(rush_user_tot= sum(rush_user_2017), notrush_user_tot = sum(notrush_user_2017))
+head(subway_2017)
+```
+
+
+변수의 이름을 변경시켜 줍니다.
+
+```{r}
+subway_2017 <- rename(subway_2017,
+                      rush_user = rush_user_tot,
+                      notrush_user = notrush_user_tot)
+head(subway_2017)
+```
+
+위에서 나눠서 전처리한 2017, 2018 데이터를 하나로 합쳐줍니다.
+```{r}
+subway_rush <- rbind(subway_2017,subway_2018)
+head(subway_rush)
+```
+
+합친 데이터에서 평균 rush_user, notrush_user의 평균 탑승객 수를 구합니다.
+평일 2호선, 출퇴근 시간에 배차된 지하철 수는 266대, 출퇴근 시간이 아닐 때는 221대가 배차되어 있습니다.
+토요일 : 2호선의 배차 차량은 총 440대, 일요일의 배차차량은 389대가 배차되어 있습입니다.
+
+먼저 평일의 평균 승객 수 입니다.
+```{r}
+notholiday <-subway_rush %>%
+  filter(holiday == 'F') %>%
+  mutate(mean_rush_user = round((rush_user)/266)) %>%
+  mutate(mean_notrush_user = round(((notrush_user)/221)) )
+
+
+head(notholiday)
+```
+토요일이면서 공휴일이 아닌날의 평균 승객수입니다. 
+토요일과 공휴일의 rush user는 0으로 가정하였으므로 mean_rush_user 또한 0 입니다.
+```{r}
+saturday <- subway_rush %>%
+  filter(day == 'Saturday' & !(date %in% (holiday_2018)) & !(date %in% (holiday_2017))) %>%
+  mutate(mean_rush_user = round((rush_user)/1)) %>%
+  mutate(mean_notrush_user = round((notrush_user)/440))
+head(saturday)
+```
+공휴일의 평균 승객 수 입니다.
+```{r}
+redday <- subway_rush %>%
+  filter(day == 'Sunday' | (date %in% (holiday_2018))| (date %in% (holiday_2017))) %>%
+  mutate(mean_rush_user = round((rush_user)/1)) %>%
+  mutate(mean_notrush_user = round((notrush_user)/389) )
+head(redday)
+```
+
+
+평균 승객수가 추가된 세개의 데이터를 다시 합쳐줍니다.
+```{r}
+subway_rush <- rbind(notholiday,saturday,redday)
+```
+
+### 날씨 데이터를 읽어와서 지하철 데이터에 일별로 합쳐줍니다.
+
+1. 비 데이터
+```{r}
+rain <- read.csv('rain/rain.csv', header = T)
+rain <- rain[,-1]# 지역코드 삭제
+rain$date <- as.Date(rain$date)
+rain_simple <- rain[,c(1,4)] # date, 일 강수량만 사용
+subway_rush <- merge(x = subway_rush, y = rain_simple, by ='date', all.x = TRUE)
+# 비 안온날 데이터 넣어주기
+subway_rush$rain <- ifelse(is.na(subway_rush$rain), 0, subway_rush$rain)
+```
+
+1. 눈 데이터를 합쳐 주었습니다.
+```{r}
+snow <- read.csv('snow/snow.csv', header = T)
+
+snow <- snow[,-1]
+snow$date <- as.Date(snow$date)
+subway_rush <- merge(x = subway_rush, y = snow, by ='date', all.x = TRUE)
+# 눈 안온날 데이터 넣어주기
+subway_rush$snow <- ifelse(is.na(subway_rush$snow), 0, subway_rush$snow)
+subway_rush$newsnow <- ifelse(is.na(subway_rush$newsnow), 0, subway_rush$newsnow)
+```
+
+
+
+
+2. 기온 데이터를 합쳐 주었습니다.
+```{r}
+temperature <- read.csv('temperature/temperature.csv', header = T)
+
+temperature <- temperature[,-1]
+temperature$date <- as.Date(temperature$date)
+subway_rush <- merge(x = subway_rush, y = temperature, by ='date', all.x = TRUE)
+```
+
+
+
+3. 습도 데이터를 합쳐 주었습니다.
+```{r}
+humid <- read.csv('humid/humid.csv', header = T)
+
+humid <- humid[,-1]
+humid$date <- as.Date(humid$date)
+subway_rush <- merge(x = subway_rush, y = humid, by ='date', all.x = TRUE)
+```
+
+
+
+
+4. 바람 데이터를 합쳐 주었습니다.
+```{r}
+wind <- read.csv('wind/wind.csv', header = T, stringsAsFactors = F)
+
+wind <- wind[,-1]
+
+wind$date <- as.Date(wind$date)
+subway_rush <- merge(x = subway_rush, y = wind, by ='date', all.x = TRUE)
+which(is.na(subway_rush$wind))
+View(subway_rush)
+```
+
+혼잡도 레벨을 만들어 줍니다.(뉴스참고)
+
+level 구분
+1 : 800
+2 : 1600
+3 : 2000
+4 : 2400
+5 : 2800
+6 : 3200
+
+#### 바쁜 시간대의 busy leve변수를 만들어 넣었습니다.
+```{r}
+subway_rush$rush_busylevel <- as.factor(ifelse(subway_rush$mean_rush_user<800, 1,
+                              ifelse(subway_rush$mean_rush_user<1600,2,
+                                     ifelse(subway_rush$mean_rush_user<2000,3,
+                                            ifelse(subway_rush$mean_rush_user<2400,4,
+                                                   ifelse(subway_rush$mean_rush_user<2800,5,
+                                                          ifelse(subway_rush$mean_rush_user<3200,6,7)))))))
+head(subway_rush$rush_busylevel)
+```
+ 
+바쁘지 않은 시간대의 busy leve변수를 만들어 넣었습니다.
+```{r}
+subway_rush$notrush_busylevel <- as.factor(ifelse(subway_rush$mean_notrush_user<800, 1,
+                                 ifelse(subway_rush$mean_notrush_user<1600,2,
+                                        ifelse(subway_rush$mean_notrush_user<2000,3,
+                                               ifelse(subway_rush$mean_notrush_user<2400,4,
+                                                      ifelse(subway_rush$mean_notrush_user<2800,5,
+                                                             ifelse(subway_rush$mean_rush_user<3200,6,7)))))))
+head(subway_rush$notrush_busylevel)
+```
+
+#### 휴일에는 출퇴근 하는 사람이 없다고 가정하였으므로, 휴일, 출퇴근 시간 혼잡도 레벨을 0으로 두었습니다.
+
+```{r}
+subway_rush$rush_busylevel <- ifelse(subway_rush$holiday == 'T', 0, subway_rush$rush_busylevel)
+head(subway_rush)
+```
+
+
+#### outlier 제거 : 일요일을 제외한 공휴일은 날씨와 상관없이 사람수가 적으므로 outlier로 보았습니다.
+```{r}
+subway_rush <- subway_rush  %>%
+  filter( !(date %in% (holiday_2018)) & !(date %in% (holiday_2017))) 
+```
+
+#### knn 분석을 위해 휴일과, 휴일이 아닌 날로 나누었습니다.
+```{r}
+notholiday <- subway_rush %>%
+  filter(holiday=='F')
+
+holiday <- subway_rush %>%
+  filter(holiday=='T')
+
+head(holiday)
+```
+
+
+
+
+#### 위에서 나눈 레벨에 따라 레벨 변수를 추가하였습니다.
+```{r}
+plot(notholiday$rush_busylevel)# 평일 출퇴근 시간의 혼잡도 구간 분포
+```
+
+
+```{r}
+plot(notholiday$notrush_busylevel)# 평일 출퇴근 시간이 아닌때의 구간 혼잡도 분포
+```
+
+```{r}
+plot(holiday$notrush_busylevel)#휴일의 혼잡도 구간 분포
+```
+
+
+## 휴일, 바쁘지 않은 시간대 예측(holiday, not rush user )
+```{r}
+holiday.knn <- holiday
+set.seed(2019)
+nholiday.knn <- nrow(holiday.knn) 
+rgroup <- runif(nholiday.knn)
+
+# data partition to learn a prediction model 
+train.knn <- subset(holiday.knn, rgroup <= 0.8)
+
+# hold-out data for testing
+test.knn <- subset(holiday.knn, rgroup > 0.8)
+
+```
+
+#### 정규화를 해줍니다.
+```{r}
+# min-max normalization
+minmax_norm <- function(x) {
+  (x-min(x))/(max(x)-min(x))
+}
+
+train.knn$rain <- minmax_norm(train.knn$rain)
+train.knn$newsnow <- minmax_norm(train.knn$newsnow)
+train.knn$snow <- minmax_norm(train.knn$snow) 
+train.knn$meantemp <- minmax_norm(train.knn$meantemp)
+train.knn$lowtemp  <- minmax_norm(train.knn$lowtemp)
+train.knn$hightemp <- minmax_norm(train.knn$hightemp)
+train.knn$humid <- minmax_norm(train.knn$humid) 
+train.knn$wind <- minmax_norm(train.knn$wind)
+
+
+test.knn$rain <- minmax_norm(test.knn$rain)
+test.knn$meantemp <- minmax_norm(test.knn$meantemp)
+test.knn$lowtemp  <- minmax_norm(test.knn$lowtemp)
+test.knn$hightemp <- minmax_norm(test.knn$hightemp)
+test.knn$humid <- minmax_norm(test.knn$humid) 
+test.knn$wind <- minmax_norm(test.knn$wind) 
+
+```
+
+
+#### 정규화를 마친 데이터를 설명변수와 목적변수로 구별합니다.
+```{r}
+train.knn_new  <-  train.knn[,c('rain','newsnow','snow','meantemp','lowtemp','hightemp','humid','wind')]
+train.knn_label <- train.knn[,c('notrush_busylevel')]
+test.knn_new <-  test.knn[,c('rain','newsnow','snow','meantemp','lowtemp','hightemp','humid','wind')]
+test.knn_label <- test.knn[,c('notrush_busylevel')]
+```
+
+
+#### Knn에 사용할 K의 값은 root연산을 이용하였습니다.
+```{r}
+# choosing proper k 
+sqrt(nrow(train.knn)) # 13
+```
+
+
+#### knn을 사용하여 예측을 하고 정확도를 구해보았습니다.
+```{r}
+library(class)
+table(is.na(test.knn_new))
+train.knn_pred <-  knn(train = train.knn_new, test = test.knn_new , cl = train.knn_label, k = 13)
+tbl = table(test.knn_label,train.knn_pred)
+# acc
+acc <- 11/37
+acc
+```
+
+
+
+## 평일, 바쁘지 않은 시간대 예측(not holiday, not rush user) 
+### 위와 같은 방식으로 해주었습니다.
+```{r}
+
+# test, train 나누기
+set.seed(2019)
+nnotholiday <- nrow(notholiday)
+rgroup <- runif(nnotholiday)
+
+train <- subset(notholiday, rgroup <= 0.8)
+test <- subset(notholiday, rgroup > 0.8)
+
+table(is.na(train))
+sum(is.na(test))
+
+# 목적변수 확인.
+unique(train$notrush_busylevel)
+
+train.knn  <-  train[,c('rain','newsnow','snow','meantemp','lowtemp','hightemp','humid','wind')]
+train.label <- train[,c('rush_busylevel')]
+test.knn <-  test[,c('rain','newsnow','snow','meantemp','lowtemp','hightemp','humid','wind')]
+test.label <- test[,c('rush_busylevel')]
+
+# normalization을 해준다. 
+
+train.knn.norm <- sapply(train.knn, minmax_norm) #diagnosis를 제외한 변수들에 minmax_norm 적용.
+test.knn.norm <- sapply(test.knn,minmax_norm)
+
+
+# determine k
+sqrt(nrow(train.knn)) # k = 20 으로 잡는다.
+
+library(class)
+
+# k = 20일 때, 예측.
+train.pred <- knn(train = train.knn.norm, test = test.knn.norm, cl = train.label, k = 20)
+
+cmat <- table(test.label, train.pred)
+cmat
+```
+
+
+
+
+## 평일, 출퇴근 시간 not holiday, rush user
+위와 같은 방법으로 했습니다.
+```{r}
+
+# test, train 나누기
+set.seed(2019)
+nnotholiday <- nrow(notholiday)
+rgroup <- runif(nnotholiday)
+
+train <- subset(notholiday, rgroup <= 0.8)
+test <- subset(notholiday, rgroup > 0.8)
+
+dim(train)
+dim(test)
+
+#knn 분석에 사용 할 변수만 가져오기
+str(notholiday)
+train_knn <-  train[,c('rain','newsnow','snow','meantemp','lowtemp','hightemp','humid','wind')]
+train_label <- train[,c('rush_busylevel')]
+test_knn <-  test[,c('rain','newsnow','snow','meantemp','lowtemp','hightemp','humid','wind')]
+test_label <- test[,c('rush_busylevel')]
+
+
+train_knn_norm <- sapply(train_knn, minmax_norm)
+test_knn_norm <- sapply(test_knn, minmax_norm)
+
+# k 의 수 구하기
+sqrt(nrow(train_knn))
+
+# making prediction
+library(class)
+level_test_pred <- knn(train = is.na(train_knn_norm), test = is.na(test_knn_norm), cl = train_label,
+                       k = 20)
+
+# performance
+  tbl <- table(test_label,level_test_pred)
+  acc =  (0+91)/92
+  acc
+
+ 
+```
