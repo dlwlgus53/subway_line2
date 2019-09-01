@@ -5,4 +5,6 @@
 ## 보고서
 ##### ppt : <https://github.com/dlwlgus53/subway_line2/blob/master/subway_ppt.pdf>
 ##### word : <https://github.com/dlwlgus53/subway_line2/blob/master/Subway_report.pdf>
+##### RMD : <https://github.com/dlwlgus53/subway_line2/blob/master/Subway.Rmd>
+
 
